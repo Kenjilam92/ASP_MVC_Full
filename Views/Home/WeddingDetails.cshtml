@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = $"{ViewBag.Wedding.WedderOne} & {ViewBag.Wedding.WedderTwo}";
+}
+
+<div class="d-flex justify-content-between">
+    <h1>@ViewBag.Wedding.WedderOne & @ViewBag.Wedding.WedderTwo's Wedding</h1>
+    <p>
+        <a href="/dashboard">Dashboard</a> <a href="/logout">Log Out</a>
+    </p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <p>Date: @ViewBag.Wedding.Date</p>
+        <p>Guests:</p>
+        <ul>
+            @foreach(var a in ViewBag.Wedding.AllGuests)
+            {
+                <li>@a.User.FirstName @a.User.LastName</li>    
+            }
+        </ul>
+    </div>
+</div>

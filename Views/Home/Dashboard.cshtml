@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] ="Dashboard";
+}
+
+<div class="d-flex justify-content-between">
+    <h1>Welcome to the Wedding Panner</h1>
+    <a href="/logout">Log Out</a>
+</div>
+<table class="table table-bordered">
+    <thead class="thead-dark"> 
+        <tr>
+            <th>Wedding</th>
+            <th>Date</th>
+            <th>Guest</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach( Wedding w in ViewBag.WeddingPlans)
+        {
+        <tr>
+            <td><a href="/wedding/@w.WeddingId">@w.WedderOne & @w.WedderTwo</a></td>
+            <td>@w.Date</td>
+            <td>@w.AllGuests.Count</td>
+            <td>
+                @if( ViewBag.UserId == w.UserId)
+                {
+                    <a href="/wedding/@w.WeddingId/cancel" class="btn btn-danger">Cancel</a>
+                }
+                else if (w.AllGuests.Any(a => a.UserId == ViewBag.UserId))
+                {
+                    <a href="/wedding/@w.WeddingId/UnRSVP" class="btn btn-secondary">Un-RSVP</a>
+                }
+                else
+                {
+                    <a href="/wedding/@w.WeddingId/RSVP" class="btn btn-success">RSVP</a>
+                }    
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/">New Wedding</a>
